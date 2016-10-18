@@ -1,0 +1,14 @@
+dependencies {
+	compile project(':dal')
+	compile group:'com.typesafe.play', name: 'play-slick-evolutions_2.11', version:'1.1.1'
+	compile group:'com.typesafe.slick',name:'slick_2.11',version:'3.1.1'
+	compile group:'com.typesafe.play',name:'play-slick-evolutions_2.11',version:'1.1.1'
+	compile group:'com.github.tminglei',name:'slick-pg_2.11',version:'0.14.2'
+	compile group:'com.github.tminglei',name:'slick-pg_date2_2.11',version:'0.14.2'
+	compile group:'com.github.tminglei',name:'slick-pg_play-json_2.11',version:'0.14.2'
+	compile group:'com.github.tminglei',name:'slick-pg_threeten_2.11',version:'0.14.2'
+	compile group: 'com.typesafe.slick', name: 'slick-hikaricp_2.11', version: '3.1.1'
+	compile group: 'com.typesafe.slick', name:'slick-codegen_2.11', version: '3.1.1'
+	compile group: 'com.github.scopt', name: 'scopt_2.11', version: '3.5.0'
+}
+

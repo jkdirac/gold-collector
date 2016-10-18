@@ -1,0 +1,24 @@
+ext {
+    // some extension config here
+    //webAppDir = "build/libs"
+}
+
+dependencies {
+	compile group:'com.typesafe.play', name: 'play-slick-evolutions_2.11', version:'1.1.1'
+	compile group:'com.typesafe.slick',name:'slick_2.11',version:'3.1.1'
+	compile group:'com.typesafe.play',name:'play-slick-evolutions_2.11',version:'1.1.1'
+	compile group:'com.github.tminglei',name:'slick-pg_2.11',version:'0.14.2'
+	compile group:'com.github.tminglei',name:'slick-pg_date2_2.11',version:'0.14.2'
+	compile group:'com.github.tminglei',name:'slick-pg_play-json_2.11',version:'0.14.2'
+	compile group:'com.github.tminglei',name:'slick-pg_threeten_2.11',version:'0.14.2'
+	compile group: 'com.typesafe.slick', name: 'slick-hikaricp_2.11', version: '3.1.1'
+	compile group: 'com.typesafe.slick', name:'slick-codegen_2.11', version: '3.1.1'
+	compile group: 'com.chuusai', name:'shapeless_2.11', version: '2.3.2'
+	compile group: 'ai.x', name: 'diff_2.11', version: '1.2.0'
+	compile(group: 'ai.x', name: 'play-json-extensions_2.11', version: '0.8.0') {
+		exclude group: 'com.typesafe.play', module: 'play-json_2.11' //by group
+	}
+}
+
+
+

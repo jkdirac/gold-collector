@@ -1,0 +1,190 @@
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# User auth
+GET     /login                      controllers.UserApi.login(mail: String, password: String)
+GET     /logout                     controllers.UserApi.logout
+GET     /client-companys/committee-members            controllers.UserApi.listCommitteeForCompany
+GET     /client-companys/:id        controllers.UserApi.getCompany(id)
+GET     /client-companys            controllers.UserApi.listCompany
+GET     /client-companys/:id/users        controllers.UserApi.getUsersByClientCompany(id)
+POST    /register                   controllers.UserApi.register
+POST    /client-companys            controllers.UserApi.createCompany
+PUT     /client-companys/:id        controllers.UserApi.updateCompany(id)
+DELETE  /client-companys/:id        controllers.UserApi.deleteCompany(id)
+
+PUT     /users/:id                  controllers.UserApi.updateUser(id)
+GET     /users/:ownerId/teams       controllers.InvestmentTeamApi.getTeamByOwner(ownerId: String)
+GET     /users/me/teams             controllers.InvestmentTeamApi.getTeamByCurrentUser()
+GET     /users/:id/tasks/assigned       controllers.TaskApi.listByAssignee(id: String)
+GET     /users/:id/tasks/report         controllers.TaskApi.listByReporter(id: String)
+GET     /users/:userId/teams/starred              controllers.InvestmentTeamApi.queryFavoritedTeamsByUser(userId: String)
+
+
+# query team by client/client
+GET  /clients/:clientId/teams/investigated controllers.InvestmentTeamApi.getInvestigatedTeamsByClient(clientId: String)
+GET  /users/:userId/teams/investigated controllers.InvestmentTeamApi.getInvestigatedTeamsByUser(userId: String)
+GET  /clients/:clientId/teams/recommended controllers.InvestmentTeamApi.getRecommendedTeamsByClient(clientId: String)
+GET  /users/:userId/teams/recommended controllers.InvestmentTeamApi.getRecommendedTeamsByUser(userId: String)
+
+# Team management
+GET     /teams                      controllers.InvestmentTeamApi.query()
+POST    /teams                      controllers.InvestmentTeamApi.addTeam
+POST    /teams/:id/recommend        controllers.InvestmentTeamApi.recommendTeam(id: String)
+PUT     /teams/:id                  controllers.InvestmentTeamApi.updateTeam(id: String)
+GET     /teams/:id                  controllers.InvestmentTeamApi.getTeam(id: String)
+DELETE  /teams/:id                  controllers.InvestmentTeamApi.deleteTeams(id: String)
+
+GET     /teams/:teamId/products/investigated     controllers.HfProductApi.queryInvestigatedProductForTeam(teamId: String)
+
+POST    /teams/:teamId/members                   controllers.InvestmentTeamApi.addTeamMember(teamId: String)
+PUT     /teams/:teamId/members/:memberId         controllers.InvestmentTeamApi.updateTeamMember(teamId: String, memberId: String)
+GET     /teams/:teamId/members                   controllers.InvestmentTeamApi.getMembersByTeam(teamId: String)
+GET     /members/:memberId                       controllers.InvestmentTeamApi.getTeamMember(memberId: String)
+DELETE  /teams/:teamId/members/:memberId         controllers.InvestmentTeamApi.deleteTeamMember(teamId: String, memberId: String)
+
+# fund manager
+GET     /fund-managers/:managerId   controllers.FundManagerApi.getFundManger(managerId: String)
+
+# Reports
+POST    /reports                    controllers.ReportApi.createReports
+PUT     /reports/:id                controllers.ReportApi.updateReport(id: String)
+GET     /reports                    controllers.ReportApi.listReports
+GET     /teams/:id/reports          controllers.ReportApi.getTeamReport(id: String)
+GET     /reports/:id                controllers.ReportApi.getReport(id: String)
+DELETE  /reports/:id                controllers.ReportApi.deleteReport(id: String)
+
+# Reviews
+POST    /reports/:reportId/reviews                  controllers.ReportApi.createReview(reportId: String)
+PUT     /reports/:reportId/reviews/:reviewId        controllers.ReportApi.updateReview(reportId: String, reviewId: String)
+GET     /reports/:reportId/reviews                  controllers.ReportApi.getReviewsByReport(reportId: String)
+DELETE  /reviews/:id                                controllers.ReportApi.deleteReview(id: String)
+POST    /reports/:reportId/final-review                 controllers.ReportApi.addFinalReview(reportId: String)
+PUT     /reports/:reportId/final-review/:fid            controllers.ReportApi.updateFinalReview(reportId: String, fid: String)
+GET     /reports/:reportId/final-review                 controllers.ReportApi.getFinalReviewByReport(reportId: String)
+
+# Tasks
+GET     /tasks                          controllers.TaskApi.list
+POST    /tasks                          controllers.TaskApi.upsert
+PUT     /tasks/:id                      controllers.TaskApi.update(id: String)
+
+# product
+GET     /products                   controllers.HfProductApi.query()
+GET     /products/investigated                  controllers.HfProductApi.queryInvestigatedProduct()
+GET     /products/starred                       controllers.HfProductApi.queryStarredProduct()
+GET     /products/recent-analyzed               controllers.HfProductApi.queryRecentViewedProduct()
+GET     /products/:productId/fund-managers controllers.FundManagerApi.getFundMangerByProduct(productId: String)
+GET     /products/:code             controllers.HfProductApi.getHfProduct(code:String)
+GET     /teams/:teamId/products     controllers.HfProductApi.queryProductByTeam(teamId:String)
+GET     /users/me/products          controllers.HfProductApi.getHfProductForCurrentUser()
+GET     /users/:userId/products     controllers.HfProductApi.getHfProductForOwner(userId:String)
+DELETE  /products/:id               controllers.HfProductApi.deleteHfProduct(id:String)
+POST    /products                   controllers.HfProductApi.createHfProduct()
+PUT     /products/:id               controllers.HfProductApi.updateHfProduct(id)
+
+# net values
+GET     /products/:productId/net-values         controllers.HfProductApi.getProductNetValue(productId:String)
+DELETE  /products/:productId/net-values         controllers.HfProductApi.deleteProductAllNetValue(productId:String)
+DELETE  /products/:productId/net-values/:id     controllers.HfProductApi.deleteProductNetValue(productId:String,id:String)
+POST    /products/:productId/net-values         controllers.HfProductApi.createProductNetValue(productId:String)
+PUT     /products/:productId/net-values/upload  controllers.HfProductApi.uploadProductNetValue(productId:String)
+PUT     /products/:productId/net-values/:id     controllers.HfProductApi.updateProductNetValue(productId:String,id:String)
+
+GET     /products/:productId/performance        controllers.HfProductEvaluationApi.getEvaluation(productId:String)
+GET     /products/:productId/performance/latest        controllers.HfProductEvaluationApi.getLatestEvaluation(productId:String)
+GET     /products/:productId/performance/ranking       controllers.HfProductEvaluationApi.getRanking(productId:String)
+GET     /products/:productId/performance/:year         controllers.HfProductEvaluationApi.getYearly(productId:String, year:String)
+GET     /products/:productId/performance/histograms/:metric    controllers.HfProductEvaluationApi.getEvaluationHistogram(productId:String, metric: String)
+GET     /products/:productId/returns            controllers.HfProductEvaluationApi.getReturn(productId:String)
+GET     /products/:productId/robust-fit         controllers.HfProductEvaluationApi.getRobustFit(productId:String)
+
+# comments
+GET     /comments/:commentId         controllers.CommentsApi.getCommentById(commentId:String)
+GET     /:commentedObjId/comments    controllers.CommentsApi.getCommentFor(commentedObjId:String)
+DELETE  /comments/:commentId         controllers.CommentsApi.deleteCommentById(commentId:String)
+DELETE  /:commentedObjId/comments    controllers.CommentsApi.deleteAllCommentsFor(commentedObjId:String)
+POST    /comments                    controllers.CommentsApi.createComment()
+PUT     /comments/:commentId         controllers.CommentsApi.updateComment(commentId:String)
+
+# FundChangeData
+GET     /products/:productId/changes         controllers.VFundChangeDataApi.getVFundChangeDataById(productId:String)
+# FundSplitData
+GET     /products/:productId/splits         controllers.VFundSplitDataApi.getVFundSplitDataById(productId:String)
+# HDataIndex
+GET     /benchmarks/:code                                      controllers.IndexApi.getCandleChartByCode(code:String)
+GET     /benchmarks/:code/performance/latest                    controllers.IndexApi.getLatestEvaluation(code:String)
+GET     /benchmarks/:code/performance                           controllers.IndexApi.getEvaluation(code:String)
+
+#openDay
+GET     /portfolios/:id/liquidities                controllers.HfLiquidityDateApi.getHfLiquidityDateByportfolioPId(id:String)
+POST    /portfolios/:id/liquidities                    controllers.HfLiquidityDateApi.createHfLiquidityDate(id:String)
+PUT    /portfolios/:id/liquidities                    controllers.HfLiquidityDateApi.createHfLiquidityDate(id:String)
+DELETE  /portfolios/:id/liquidities/:productId                controllers.HfLiquidityDateApi.deleteHfLiquidityByProductId(id: String, productId: String)
+
+# favorite
+GET     /users/:userId/favorites    controllers.FavoriteApi.getFavoritesItemsForUser(userId:String)
+GET     /items/:itemId/favorites    controllers.FavoriteApi.getUserForFavoriteItem(itemId:String)
+GET     /favorites/check            controllers.FavoriteApi.checkFavorite()
+DELETE  /favorites/:favoriateId     controllers.FavoriteApi.cancelFavorite(favoriateId:String)
+POST    /favorites                  controllers.FavoriteApi.addFavorite()
+
+# oss upload
+GET     /oss/list/:companyId            controllers.OssObjectApi.listObject(companyId:String)
+GET     /oss/get/:companyId/:fileName   controllers.OssObjectApi.getObject(companyId:String, fileName:String)
+POST    /oss/post/:companyId            controllers.OssObjectApi.postObject(companyId:String)
+
+# sanity check
+GET     /status                     controllers.StatusApi.index()
+
+# peer group
+POST    /peer-groups                                        controllers.PeerGroupApi.createPeerGroup
+GET     /peer-groups/:peerGroupId                           controllers.PeerGroupApi.getPeerGroup(peerGroupId:String)
+PUT     /peer-groups/:peerGroupId                           controllers.PeerGroupApi.updatePeerGroup(peerGroupId:String)
+DELETE  /peer-groups/:peerGroupId                           controllers.PeerGroupApi.deletePeerGroupById(peerGroupId:String)
+GET     /users/:userId/peer-groups                          controllers.PeerGroupApi.getPeerGroupsForOwner(userId:String)
+GET     /peer-groups/:peerGroupId/qualitative               controllers.PeerGroupApi.getAggregationOfProducts(peerGroupId:String)
+POST    /peer-groups/:peerGroupId/products                  controllers.PeerGroupApi.addProductsToPeerGroup(peerGroupId:String)
+DELETE  /peer-groups/:peerGroupId/products                  controllers.PeerGroupApi.deleteProductsInPeerGroup(peerGroupId:String)
+GET     /peer-groups/:peerGroupId/correlations              controllers.PeerGroupApi.getCorrelationScores(peerGroupId:String)
+GET     /peer-groups/:peerGroupId/acc-yield                 controllers.PeerGroupApi.getAccYields(peerGroupId:String)
+GET     /peer-groups/:peerGroupId/acc-yield-indicators      controllers.PeerGroupApi.getAccYieldIndicators(peerGroupId:String)
+GET     /peer-groups/:peerGroupId/max-drawdown              controllers.PeerGroupApi.getMaxDrawdown(peerGroupId:String)
+GET     /peer-groups/:peerGroupId/risk-return-indicators    controllers.PeerGroupApi.getRiskReturnIndicators(peerGroupId:String)
+
+# portfolio
+POST    /portfolios/:portfolioId/tunings                      controllers.PortfolioApi.createTuning(portfolioId: String)
+GET     /portfolios/:portfolioId/tunings/:tuningId                              controllers.PortfolioApi.getTuning(portfolioId: String, tuningId: String)
+GET     /portfolios/:portfolioId/tunings/:tuningId/performance/latest           controllers.PortfolioApi.getTuningLatestEvaluation(portfolioId: String, tuningId: String)
+GET     /portfolios/:portfolioId/tunings/:tuningId/performance                  controllers.PortfolioApi.getTuningEvaluation(portfolioId: String, tuningId:String)
+GET     /portfolios/:portfolioId/tunings/:tuningId/products-performance         controllers.PortfolioApi.getTuningProductsPerformance(portfolioId: String, tuningId: String)
+GET     /portfolios/:portfolioId/tunings/:tuningId/attribution/:metricName      controllers.PortfolioApi.getTuningAttributionByMetric(portfolioId: String, tuningId:String, metricName: String)
+GET     /portfolios/:portfolioId/tunings/:tuningId/efficient-frontier           controllers.PortfolioApi.getEfficientFrontier(portfolioId: String, tuningId:String)
+
+GET     /portfolios                                         controllers.PortfolioApi.getPortfolios()
+POST    /portfolios                                         controllers.PortfolioApi.createPortfolio()
+GET     /portfolios/:portfolioId                            controllers.PortfolioApi.getPortfolioProducts(portfolioId: String)
+DELETE  /portfolios/:portfolioId                            controllers.PortfolioApi.deletePortfolioById(portfolioId:String)
+GET     /portfolio-performance                              controllers.PortfolioApi.getPortfoliosPerformance()
+GET     /portfolios/:portfolioId/products-performance       controllers.PortfolioApi.getPortfolioProductsPerformance(portfolioId: String)
+
+# portfolio transaction
+POST    /portfolios/:portfolioId/transactions           controllers.PortfolioTransactionApi.createPortfolioTransaction(portfolioId:String)
+GET     /portfolios/:portfolioId/transactions           controllers.PortfolioTransactionApi.getPortfolioTransactions(portfolioId:String)
+GET     /portfolios/:portfolioId/allocations            controllers.PortfolioTransactionApi.getPortfolioAllocations(portfolioId:String)
+POST    /portfolios/transactions/:transactionId         controllers.PortfolioTransactionApi.deleteTransaction(transactionId:String)
+PUT     /portfolios/transactions/:transactionId         controllers.PortfolioTransactionApi.updateTransaction(transactionId:String)
+
+# portfolio monitor
+POST    /portfolios/:portfolioId/monitor-jobs                               controllers.PortfolioMonitorAPI.createPortfolioMonitorJob(portfolioId: String)
+POST    /portfolios/:portfolioId/products/:productId/monitor-jobs           controllers.PortfolioMonitorAPI.createProductMonitorJob(portfolioId: String, productId: String)
+GET     /portfolios/:portfolioId/monitor-jobs                               controllers.PortfolioMonitorAPI.getPortfolioMonitorJobs(portfolioId: String, jobType: String)
+GET     /portfolios/:portfolioId/monitor-alerts                             controllers.PortfolioMonitorAPI.getPortfolioMonitorTriggerHistory(portfolioId: String, jobType: String)
+GET     /portfolios/:portfolioId/net-values                                 controllers.PortfolioMonitorAPI.getPortfolioHistoryNAV(portfolioId: String)
+GET     /portfolios/:portfolioId/products-net-values                        controllers.PortfolioMonitorAPI.getPortfolioProductsHistoryNAV(portfolioId: String)
+
+GET     /benchmarks             controllers.PortfolioMonitorAPI.getAllBenchmarks()
+GET     /indicators             controllers.PortfolioMonitorAPI.getAllIndicators()
+GET     /comparators            controllers.PortfolioMonitorAPI.getAllCompares()
+
+# cache update job
+GET     /jobs/:jobName/start    controllers.CronJobApi.startJob(jobName:String)
